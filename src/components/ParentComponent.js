@@ -8,6 +8,8 @@ class ParentComponent extends React.Component {
     state = {
         firstName: "",
         lastName: "",
+        dob: "",
+        error: '',
         submittedData: []
       }
 
@@ -31,30 +33,35 @@ class ParentComponent extends React.Component {
           [event.target.name]: event.target.value //square brackets to make it dynamic and not take literal string "event.target.value"
         }) //update state firstName: "user input"
       }
-
+//handleSubmit = (firstName, lastName, dob)
       handleSubmit = (event) => { 
+        // console.log(firstName);
+        // console.log(lastName);
+        // console.log(dob);
         event.preventDefault(); //prevent opening new page
         // console.log(event.target); //uncontrolled, each form element has its own internal state you must access individually
         // console.log(event.target[0].value)
         // console.log(event.target[1].value)
-        let formData = { firstName: this.state.firstName, lastName: this.state.lastName }
+        let formData = { firstName: this.state.firstName, lastName: this.state.lastName, dob: this.state.dob }
         let dataArray = this.state.submittedData.concat(formData) 
         // //combine existing array with new array
         this.setState({submittedData: dataArray})
         // this.sendFormDataSomewhere(formData)
         console.log(this.state); //controlled //asynchronous?
+        console.log(this.state.firstName)
+
         }
     
       render() {
         return (
             <div>
-          <Form
+          <Form 
           handleOnSubmit={this.handleSubmit}
             formData={this.state}
             handleOnChange={this.handleOnChange}
-            handleOnChange={this.handleOnChange}
-          />
-          <DisplayData formData={this.state} />
+            handleOnChange={this.handleOnChange} >
+            </Form>
+          <DisplayData formData={this.state}></DisplayData>
           </div>
         )
       }

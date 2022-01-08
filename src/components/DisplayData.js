@@ -7,6 +7,7 @@ class DisplayData extends React.Component {
       <div>
         <h1>{this.props.formData.firstName}</h1>
         <h1>{this.props.formData.lastName}</h1>
+        <h2>{this.props.formData.dob}</h2>
       </div>
     )
   }
