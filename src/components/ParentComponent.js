@@ -6,24 +6,11 @@ import DisplayData from './DisplayData'
 
 class ParentComponent extends React.Component {
     state = {
-        firstName: "John",
-        lastName: "Henry",
+        firstName: "",
+        lastName: "",
         submittedData: []
       }
-    
-      // handleFirstNameChange = (event) => {
-      //   this.setState({
-      //     firstName: event.target.value
-      //   })
-      // }
-    
-      // handleLastNameChange = (event) => {
-      //   this.setState({
-      //     lastName: event.target.value
-      //   })
-      // }
-    
-      //combine the first two functions into one like this!
+
       handleOnChange = (event) => {
         if(event.target.name === 'firstName'){//check we are inputting on the relevant DOM input element
           if(this.state.firstName.length > 10) { //check its length
@@ -45,36 +32,33 @@ class ParentComponent extends React.Component {
         }) //update state firstName: "user input"
       }
 
-  handleSubmit = (event) => { 
-    event.preventDefault(); //prevent opening new page
-    // console.log(event.target); //uncontrolled
-    // console.log(event.target[0].value)
-    // console.log(event.target[1].value)
-    let formData = { firstName: this.state.firstName, lastName: this.state.lastName }
-    let dataArray = this.state.submittedData.concat(formData) //combine existing array with new array
-    this.setState({submittedData: dataArray})
-    // this.sendFormDataSomewhere(formData)
-    console.log(this.state); //controlled
-  }
-
-//   listOfSubmissions = () => {
-//     return this.state.submittedData.map((data, i) => {
-//       return <div key={i}><span>{data.firstName}</span> <span>{data.lastName}</span></div>
-//     })
-//   }
-
+      handleSubmit = (event) => { 
+        event.preventDefault(); //prevent opening new page
+        // console.log(event.target); //uncontrolled, each form element has its own internal state you must access individually
+        // console.log(event.target[0].value)
+        // console.log(event.target[1].value)
+        let formData = { firstName: this.state.firstName, lastName: this.state.lastName }
+        let dataArray = this.state.submittedData.concat(formData) 
+        // //combine existing array with new array
+        this.setState({submittedData: dataArray})
+        // this.sendFormDataSomewhere(formData)
+        console.log(this.state); //controlled //asynchronous?
+        }
+    
       render() {
         return (
-          <div>
-            <Form
-              formData={this.state}
-              handleOnChange={this.handleOnChange}
-              onSubmit={this.handleSubmit}
-            />
-            <DisplayData formData={this.state} />
+            <div>
+          <Form
+          handleOnSubmit={this.handleSubmit}
+            formData={this.state}
+            handleOnChange={this.handleOnChange}
+            handleOnChange={this.handleOnChange}
+          />
+          <DisplayData formData={this.state} />
           </div>
         )
       }
+
 }
 
 export default ParentComponent;
